@@ -1,12 +1,31 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-SET(PROJECT_NAME "LEMON-PROJECT-TEMPLATE")
-SET(PROJECT_VERSION "hg-tip"
-                    CACHE STRING "LEMON PROJECT TEMPLATE version string.")
+## Here comes the name of your project:
 
+SET(PROJECT_NAME "LEMON-PROJECT-TEMPLATE")
+
+## Change 'hg-tip' to the current version number of your project if you wish.
+## Optionally, you can leave it as is as set PROJECT_VERSION from the cmake-gui
+## when you make a release.
+## The last parameter is a help string displayed by CMAKE.
+
+SET(PROJECT_VERSION "hg-tip"
+    CACHE STRING "LEMON PROJECT TEMPLATE version string.")
+
+## Do not edit this.
 PROJECT(${PROJECT_NAME})
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+## The next part looks for LEMON. Typically, you don't want to modify it.
+##
+## First, it checks if there exists a 'lemon' subdirectory which should contain
+## the LEMON source tree. If it is there, then it will compile it locally and
+## use it as a subproject. If it isn't, then CMAKE will try to find an
+## installed version of LEMON. If it is installed to some non-standard place,
+## then you must tell its location to 'cmake-gui' in the LEMON_ROOT_DIR
+## config variable. (Do not hard code it into your config! Others may keep
+## LEMON at different places.)
 
 IF(EXISTS ${CMAKE_SOURCE_DIR}/lemon)
   ADD_SUBDIRECTORY(lemon)
@@ -20,7 +39,11 @@ ELSE()
   FIND_PACKAGE(LEMON REQUIRED)
 ENDIF()
 
+## This line finds doxygen (for document creation)
+
 FIND_PACKAGE(Doxygen)
+
+## These are the include directories used by the compiler.
 
 INCLUDE_DIRECTORIES(
   ${PROJECT_SOURCE_DIR}
@@ -28,31 +51,59 @@ INCLUDE_DIRECTORIES(
   ${LEMON_INCLUDE_DIRS}
 )
 
+## Here we define an executable target. Its name is 'lemon-project' and
+## is compiled from 'main.cc'. You can add more source files separated
+## with whitespaces (including newlines). If you want to build more
+## executables, simple repeat (and edit) the following ADD_EXECUTABLE and
+## TARGET_LINK_LIBRARIES statements.
+
 ADD_EXECUTABLE(lemon-project main.cc)
 TARGET_LINK_LIBRARIES(lemon-project ${LEMON_LIBRARIES})
+
+## This tells cmake to install 'lemon-project' to $PREFIX/bin when
+## 'make install' is executed. You can give more targets separated
+## by whitespaces.
+
 INSTALL(
   TARGETS lemon-project
   RUNTIME DESTINATION bin
   COMPONENT bin
 )
 
-# IF(MSVC)
-#   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4250 /wd4355 /wd4503 /wd4800 /wd4996")
+## Sometimes MSVC overwhelms you with compiler warnings which are impossible to
+## avoid. Then comment out these sections. Normally you won't need it as the
+## LEMON include headers suppress these warnings anyway.
+
+#IF(MSVC)
+#  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}
+#      /wd4250 /wd4355 /wd4503 /wd4800 /wd4996")
 # # Suppressed warnings:
 # # C4250: 'class1' : inherits 'class2::member' via dominance
 # # C4355: 'this' : used in base member initializer list
 # # C4503: 'function' : decorated name length exceeded, name was truncated
-# # C4800: 'type' : forcing value to bool 'true' or 'false' (performance warning)
+# # C4800: 'type' : forcing value to bool 'true' or 'false'
+# #        (performance warning)
 # # C4996: 'function': was declared deprecated
 # ENDIF(MSVC)
 
 ENABLE_TESTING()
 
+## This auxiliary doxygen files (.dox) should be placed in the 'doc'
+## subdirectory. The next line includes the CMAKE config of that directory.
+
 ADD_SUBDIRECTORY(doc)
 
-######################################################################
-# CPACK configuration 
-######################################################################
+#######################################################################
+## CPACK configuration
+##
+## It is used to configure the .exe installer created by CPACK.
+## Consider editing these values:
+## - CPACK_PACKAGE_VENDOR
+## - CPACK_PACKAGE_DESCRIPTION_SUMMARY
+## - CPACK_NSIS_HELP_LINK
+## - CPACK_NSIS_URL_INFO_ABOUT
+## - CPACK_NSIS_CONTACT
+#######################################################################
 
 IF(${CMAKE_SOURCE_DIR} STREQUAL ${PROJECT_SOURCE_DIR})
   SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
