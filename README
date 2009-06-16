@@ -9,8 +9,8 @@ $ hg clone http://lemon.cs.elte.hu/hg/lemon-project-template myproject
 $ cd myproject
 
 As you probably want to use LEMON in your project, you will need it
-too. For this you have to options. You can either install is somewhere
-or use a local copy of lemon dedicated to your project. This later
+too. For this you have to options. You can either install it somewhere
+or use a local copy of LEMON dedicated to your project. This later
 option is especially usefull if you also modify/develop LEMON along
 with your project, or want to use a specific version.
 
@@ -23,7 +23,7 @@ Use a preinstalled version.
 
 Use LEMON as a subproject.
 
-    Just simply coping the lemon source code into the 'lemon' subdir
+    Just simply copying the LEMON source code into the 'lemon' subdir
     will do the job. Namely, you can either extract a release tarball
 
     $ wget http://lemon.cs.elte.hu/pub/sources/lemon-1.1.tar.gz
@@ -39,6 +39,7 @@ Then run CMAKE to create the makefiles as usual.
 $ mkdir build
 $ cd build
 $ cmake-gui ..
+
 
 Setup Your Own Project
 ======================

@@ -5,12 +5,12 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 SET(PROJECT_NAME "LEMON-PROJECT-TEMPLATE")
 
 ## Change 'hg-tip' to the current version number of your project if you wish.
-## Optionally, you can leave it as is as set PROJECT_VERSION from the cmake-gui
-## when you make a release.
+## Optionally, you can leave it as is and set PROJECT_VERSION from
+## the cmake-gui when you make a release.
 ## The last parameter is a help string displayed by CMAKE.
 
 SET(PROJECT_VERSION "hg-tip"
-    CACHE STRING "LEMON PROJECT TEMPLATE version string.")
+    CACHE STRING "${PROJECT_NAME} version string")
 
 ## Do not edit this.
 PROJECT(${PROJECT_NAME})
@@ -88,7 +88,7 @@ INSTALL(
 
 ENABLE_TESTING()
 
-## This auxiliary doxygen files (.dox) should be placed in the 'doc'
+## The auxiliary doxygen files (.dox) should be placed in the 'doc'
 ## subdirectory. The next line includes the CMAKE config of that directory.
 
 ADD_SUBDIRECTORY(doc)
