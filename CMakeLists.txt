@@ -98,11 +98,21 @@ ADD_SUBDIRECTORY(doc)
 ##
 ## It is used to configure the .exe installer created by CPACK.
 ## Consider editing these values:
+##
 ## - CPACK_PACKAGE_VENDOR
 ## - CPACK_PACKAGE_DESCRIPTION_SUMMARY
 ## - CPACK_NSIS_HELP_LINK
 ## - CPACK_NSIS_URL_INFO_ABOUT
 ## - CPACK_NSIS_CONTACT
+##
+## Additionally, you may want to change the icons/images used by the
+## NSIS installer, i.e. these variables:
+##
+## - CPACK_NSIS_MUI_ICON
+## - CPACK_PACKAGE_ICON
+## - CPACK_NSIS_INSTALLED_ICON_NAME
+##
+## and/or the files they point to.
 #######################################################################
 
 IF(${CMAKE_SOURCE_DIR} STREQUAL ${PROJECT_SOURCE_DIR})
@@ -132,6 +142,12 @@ IF(${CMAKE_SOURCE_DIR} STREQUAL ${PROJECT_SOURCE_DIR})
       "Doxygen generated documentation")
 
   SET(CPACK_GENERATOR "NSIS")
+
+  SET(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/cmake/nsis/lemon-project.ico")
+  SET(CPACK_NSIS_MUI_UNIICON "${PROJECT_SOURCE_DIR}/cmake/nsis/uninstall.ico")
+  SET(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/cmake/nsis\\\\installer.bmp")
+  SET(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\lemon-project.ico")
+
   SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} ${PROJECT_NAME}")
   SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\lemon.cs.elte.hu")
   SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\lemon.cs.elte.hu")
