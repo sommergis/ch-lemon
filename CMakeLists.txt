@@ -19,21 +19,31 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 ## The next part looks for LEMON. Typically, you don't want to modify it.
 ##
-## First, it checks if there exists a 'lemon' subdirectory which should contain
-## the LEMON source tree. If it is there, then it will compile it locally and
-## use it as a subproject. If it isn't, then CMAKE will try to find an
-## installed version of LEMON. If it is installed to some non-standard place,
-## then you must tell its location to 'cmake-gui' in the LEMON_ROOT_DIR
-## config variable. (Do not hard code it into your config! Others may keep
+## First, it tries to use LEMON as a CMAKE subproject by looking for
+## it in the 'lemon' or 'deps/lemon' subdirectories or in directory
+## given by the LEMON_SOURCE_ROOT_DIR variable.
+## If LEMON isn't there, then CMAKE will try to find an installed
+## version of LEMON. If it is installed at some non-standard place,
+## then you must tell its location in the LEMON_ROOT_DIR CMAKE config
+## variable. (Do not hard code it into your config! Others may keep
 ## LEMON at different places.)
 
-IF(EXISTS ${CMAKE_SOURCE_DIR}/lemon)
-  ADD_SUBDIRECTORY(lemon)
+FIND_PATH(LEMON_SOURCE_ROOT_DIR CMakeLists.txt
+  PATHS ${CMAKE_SOURCE_DIR}/lemon ${CMAKE_SOURCE_DIR}/deps/lemon
+  NO_DEFAULT_PATH
+  DOC "Location of LEMON source as a CMAKE subproject")
+
+IF(EXISTS ${LEMON_SOURCE_ROOT_DIR})
+  ADD_SUBDIRECTORY(${LEMON_SOURCE_ROOT_DIR} deps/lemon)
   SET(LEMON_INCLUDE_DIRS
-    ${CMAKE_SOURCE_DIR}/lemon
-    ${CMAKE_BINARY_DIR}/lemon
+    ${LEMON_SOURCE_ROOT_DIR}
+    ${CMAKE_BINARY_DIR}/deps/lemon
   )
   SET(LEMON_LIBRARIES lemon)
+  UNSET(LEMON_ROOT_DIR CACHE)
+  UNSET(LEMON_DIR CACHE)
+  UNSET(LEMON_INCLUDE_DIR CACHE)
+  UNSET(LEMON_LIBRARY CACHE)
 ELSE()
   FIND_PACKAGE(LEMON QUIET NO_MODULE)
   FIND_PACKAGE(LEMON REQUIRED)
