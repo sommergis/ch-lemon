@@ -61,24 +61,7 @@ INCLUDE_DIRECTORIES(
   ${LEMON_INCLUDE_DIRS}
 )
 
-## Here we define an executable target. Its name is 'lemon-project' and
-## is compiled from 'main.cc'. You can add more source files separated
-## with whitespaces (including newlines). If you want to build more
-## executables, simple repeat (and edit) the following ADD_EXECUTABLE and
-## TARGET_LINK_LIBRARIES statements.
-
-ADD_EXECUTABLE(lemon-project main.cc)
-TARGET_LINK_LIBRARIES(lemon-project ${LEMON_LIBRARIES})
-
-## This tells cmake to install 'lemon-project' to $PREFIX/bin when
-## 'make install' is executed. You can give more targets separated
-## by whitespaces.
-
-INSTALL(
-  TARGETS lemon-project
-  RUNTIME DESTINATION bin
-  COMPONENT bin
-)
+ADD_SUBDIRECTORY(src)
 
 ## Sometimes MSVC overwhelms you with compiler warnings which are impossible to
 ## avoid. Then comment out these sections. Normally you won't need it as the
