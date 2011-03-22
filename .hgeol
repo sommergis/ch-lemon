@@ -1,0 +1,19 @@
+[patterns]
+**.py = native
+**.c = native
+**.cc = native
+**.cpp = native
+**.h = native
+**.hpp = native
+**.cmake = native
+**.txt = native
+**.in = native
+**.ac = native
+**.am = native
+**.m4 = native
+**.vcproj = CRLF
+Makefile = LF
+**.ico = BIN
+**.jpg = BIN
+**.bmp = BIN
+.hg* = native
