@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 ## Here comes the name of your project:
 
-SET(PROJECT_NAME "LEMON-PROJECT-TEMPLATE")
+SET(PROJECT_NAME "CH-LEMON-PROJECT")
 
 ## Change 'hg-tip' to the current version number of your project if you wish.
 ## Optionally, you can leave it as is and set PROJECT_VERSION from
@@ -137,9 +137,9 @@ ADD_SUBDIRECTORY(doc)
 
 IF(${CMAKE_SOURCE_DIR} STREQUAL ${PROJECT_SOURCE_DIR})
   SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-  SET(CPACK_PACKAGE_VENDOR "EGRES")
+  SET(CPACK_PACKAGE_VENDOR "GD")
   SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY
-      "LEMON PROJECT TEMPLATE - A Template Build Environment for LEMON")
+      "Implementation of contraction hierarchies using LEMON C++ library.")
   SET(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 
   SET(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
@@ -171,7 +171,7 @@ IF(${CMAKE_SOURCE_DIR} STREQUAL ${PROJECT_SOURCE_DIR})
   SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} ${PROJECT_NAME}")
   SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\lemon.cs.elte.hu")
   SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\lemon.cs.elte.hu")
-  SET(CPACK_NSIS_CONTACT "lemon-user@lemon.cs.elte.hu")
+  SET(CPACK_NSIS_CONTACT "gobidani@gmail.com")
   SET(CPACK_NSIS_CREATE_ICONS_EXTRA "
       CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Documentation.lnk\\\" \\\"$INSTDIR\\\\share\\\\doc\\\\index.html\\\"
       ")
