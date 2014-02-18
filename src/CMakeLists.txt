@@ -11,7 +11,7 @@ INCLUDE_DIRECTORIES(
 ## TARGET_LINK_LIBRARIES statements.
 
 ADD_EXECUTABLE(lemon-project
-        main.cc
+        main.cpp
 )
 
 ## This tells cmake to install 'lemon-project' to $PREFIX/bin when
