@@ -114,13 +114,6 @@ public:
 	}
 
 	/**
-	 * @return The number of total finalized nodes
-	 */
-	int getFinalizedNum() const {
-		return chsearch->getFinalizedNum();
-	}
-
-	/**
 	 * Clears the prevoius results.
 	 */
 	void clear() const {
