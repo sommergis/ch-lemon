@@ -10,9 +10,7 @@
 using std::ifstream;
 using lemon::ListDigraph;
 
-/**
- * This class creates an interface for using the CH search algorithm on a graph.
- */
+///This class creates an interface for using the CH search algorithm on a graph.
 template <class Prior>
 class CHInterface {
 
@@ -23,101 +21,83 @@ class CHInterface {
 
 private:
 
-	CHData chdata;
+	CHData _chdata;
 
-	CHSearch *chsearch;
-	PathReconstruct *pathrec;
+	CHSearch *_chsearch;
+	PathReconstruct *_pathrec;
 
-	refMap *forward_noderef;
-	refMap *backward_noderef;
+	refMap *_forward_noderef;
+	refMap *_backward_noderef;
 
 public:
 
-	/**
-	 * Creates the interface object.
-	 * @param graph The ListDigraph in which we want to find shortest paths
-	 * @param cost The ArcMap containing the arc costs
-	 */
+	///Creates the interface object.
+	///\param graph The ListDigraph in which we want to find shortest paths
+	///\param cost The ArcMap containing the arc costs
 	CHInterface(ListDigraph& graph, Cost& cost):
-		chdata(graph, cost) {
-		chdata.nodes = countNodes(graph);
+		_chdata(graph, cost) {
+		_chdata.nodes = countNodes(graph);
 
-		chsearch = NULL;
-		pathrec = NULL;
+		_chsearch = NULL;
+		_pathrec = NULL;
 
-		forward_noderef = NULL;
-		backward_noderef = NULL;
+		_forward_noderef = NULL;
+		_backward_noderef = NULL;
 	}
 
-	/**
-	 * Destroys the interface object.
-	 * The original graph and the arc costs won't be deleted.
-	 */
+	///Destroys the interface object.
+	///The original graph and the arc costs won't be deleted.
 	~CHInterface() {
-		delete pathrec;
-		delete chsearch;
+		delete _pathrec;
+		delete _chsearch;
 	}
 
-	/**
-	 * Runs the preprocessing algorithm.
-	 * The original graph will be changed.
-	 */
+	///Runs the preprocessing algorithm.
+	///The original graph will be changed.
 	void createCH() {
-		Preprocess<Prior> preproc(chdata);
+		Preprocess<Prior> preproc(_chdata);
 		preproc.run();
-		chsearch = new CHSearch(chdata);
-		pathrec = new PathReconstruct(chdata, *chsearch);
-		forward_noderef = chdata.forward_nodeRef;
-		backward_noderef = chdata.backward_nodeRef;
+		_chsearch = new CHSearch(_chdata);
+		_pathrec = new PathReconstruct(_chdata, *_chsearch);
+		_forward_noderef = _chdata.forward_nodeRef;
+		_backward_noderef = _chdata.backward_nodeRef;
 	}
 
 	void addOrder(vector<int> order) {
-		chdata.setOrder(order);
+		_chdata.setOrder(order);
 	}
 
-	/**
-	 * The order in which the nodes were contracted.
-	 */
+	///The order in which the nodes were contracted.
 	vector<int> getOrder() {
-		return chdata.getOrder();
+		return _chdata.getOrder();
 	}
 
-	/**
-	 * Runs the search from Node s to Node t.
-	 * @param s The source node
-	 * @param t The target node
-	 */
+	///Runs the search from Node s to Node t.
+	///\param s The source node
+	///\param t The target node
 	void runSearch(Node s, Node t) const {
-		chsearch->run((*forward_noderef)[s], (*backward_noderef)[t]);
+		_chsearch->run((*_forward_noderef)[s], (*_backward_noderef)[t]);
 	}
 
-	/**
-	 * Runs the search from a new source node using the previous search results.
-	 * @param s The new source node
-	 */
+	///Runs the search from a new source node using the previous search results.
+	///\param s The new source node
 	void runSearch_newSource(Node s) const {
-		chsearch->run_newSource((*forward_noderef)[s]);
+		_chsearch->run_newSource((*_forward_noderef)[s]);
 	}
 
-	/**
-	 * @return The distance between the previous search's source and target
-	 */
+	///\return The distance between the previous search's source and target
 	int dist() const {
-		return chsearch->dist();
+		return _chsearch->dist();
 	}
 
-	/**
-	 * @return The path between the previous search's source and target
-	 */
+	///\return The path between the previous search's source and target
 	vector<ListDigraph::Arc> getPath() const {
-		return pathrec->getPath();
+		return _pathrec->getPath();
 	}
 
-	/**
-	 * Clears the prevoius results.
-	 */
+	///Clears the prevoius results.
 	void clear() const {
-		chsearch->clear();
+		_chsearch->clear();
 	}
 };
 
