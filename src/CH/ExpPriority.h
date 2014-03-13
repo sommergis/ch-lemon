@@ -155,7 +155,7 @@ private:
   }
 
   void setPriority(Node v) {
-    prior.set(v, 190*ed[v] + 120*dn[v] + sp[v] + 5*ne[v] );
+    prior.set(v, 190*ed[v] + 120*dn[v] + sp[v] + 20*ne[v] );
   }
 
 public:

@@ -171,6 +171,11 @@ private:
     cg2.arcMap(*_cost, *(_data->backward_cost));
     cg2.arcCrossRef(*(_data->backward_backArcRef));
     cg2.run();
+
+    // restore original edge directions
+    for (unsigned int i = 0; i < to_reverse.size(); ++i) {
+      _graph->reverseArc(to_reverse[i]);
+    }
   }
 
 public:

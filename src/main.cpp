@@ -12,6 +12,6 @@ int main(int argc, char* argv[]) {
     Default_test(argv[1]);
     //Default_test("../Graphs/USA-road-d.RO.gr", 100);
     //Unweighted_test("../Graphs/USA-road-d.RO.gr", 1000);
-    //Sameorder_test("../Graphs/USA-road-d.RO.gr", "../Graphs/USA-road-d.RO.gr", 100);
+    //Sameorder_test(argv[1], argv[1]);
   }
 }
