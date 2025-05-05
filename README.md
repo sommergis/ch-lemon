@@ -1,6 +1,6 @@
 # CH-Lemon project
 
-## cloned from bitbucket.org/gobodani/ch-lemon
+## cloned from bitbucket.org/gobidani/ch-lemon
 
 This repository contains the implementation of contraction hierarchies using C++ and the LEMON library.
 
